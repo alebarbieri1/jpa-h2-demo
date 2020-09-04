@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.Account;
 import com.example.demo.domain.Customer;
+import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.CustomerRepository;
 
 @RestController
 public class DemoController {
+
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 
 	@PostMapping("/customer")
 	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
@@ -29,5 +34,11 @@ public class DemoController {
 	public ResponseEntity<List<Customer>> findCustomers() {
 		List<Customer> customers = customerRepository.findAll();
 		return ResponseEntity.ok(customers);
+	}
+
+	@GetMapping("/account")
+	public ResponseEntity<List<Account>> findAccounts() {
+		List<Account> accounts = accountRepository.findAll();
+		return ResponseEntity.ok(accounts);
 	}
 }

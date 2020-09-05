@@ -41,4 +41,10 @@ public class DemoController {
 		List<Account> accounts = accountRepository.findAll();
 		return ResponseEntity.ok(accounts);
 	}
+
+	@PostMapping("/account")
+	public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+		Account accountCreated = accountRepository.save(account);
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountCreated);
+	}
 }

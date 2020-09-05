@@ -7,15 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Table(name = "account")
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Account {
 	private Long id;
 	private String number;
+	private Double balance;
 	private Customer customer;
 
 	@Id
@@ -36,7 +36,16 @@ public class Account {
 		this.number = number;
 	}
 
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
 	@ManyToOne
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public Customer getCustomer() {
 		return customer;
 	}
